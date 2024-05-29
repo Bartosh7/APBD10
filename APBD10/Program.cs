@@ -37,6 +37,7 @@ app.MapGet("api/accounts/{id:int}", async (int id, IAccountService service) =>
     catch (NotFoundException e)
     {
         return Results.NotFound(e.Message);
+        
     }
 });
 
@@ -48,9 +49,9 @@ app.MapPost("api/products", async (PostProductModel productModel, IProductServic
         await service.PostProduct(productModel);
         return Results.Created();
     }
-    catch (NotFoundException e)
+    catch (BadRequestException e)
     {
-        return Results.NotFound(e.Message);
+        return Results.BadRequest(e.Message);
     }
 });
 
